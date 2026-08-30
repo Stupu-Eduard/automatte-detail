@@ -1,11 +1,104 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoMatte Detail - Versiunea Lux</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMatte Detail | Detailing Auto Mobil Iași/Vaslui/Bârlad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #0f0f11;
+            --border-color: #1a1a20;
+            --accent-glow: rgba(0, 198, 255, 0.15);
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --cyan: #00e5ff;
+            --blue: #0055ff;
+            --gradient: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
+        nav { display: flex; justify-content: space-between; padding: 2rem 5%; align-items: center; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+        .brand { font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; }
+        .brand span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cta-btn { background: var(--text-main); color: var(--bg-color); padding: 0.8rem 1.5rem; text-decoration: none; font-weight: 600; border-radius: 4px; transition: all 0.3s ease; }
+        .cta-btn:hover { background: var(--cyan); box-shadow: 0 0 20px var(--accent-glow); }
+        .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; position: relative; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 7rem); line-height: 0.9; letter-spacing: -2px; margin-bottom: 1.5rem; max-width: 900px; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 500px; margin-bottom: 3rem; }
+        .bento-section { padding: 5rem 5%; }
+        .bento-section h2 { font-size: 3rem; margin-bottom: 3rem; }
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; grid-auto-rows: minmax(250px, auto); }
+        .bento-card { background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem; position: relative; overflow: hidden; transition: border-color 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .bento-card::before { content: ""; position: absolute; top: var(--y, 0); left: var(--x, 0); transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 0; }
+        .bento-card:hover::before { opacity: 1; }
+        .bento-card:hover { border-color: rgba(0, 229, 255, 0.4); }
+        .bento-card > * { position: relative; z-index: 1; }
+        .price-tag { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--cyan); margin-bottom: 1rem; }
+        .card-premium { grid-column: span 2; background: linear-gradient(145deg, #0a0a0c 0%, #111116 100%); }
+        .card-info { grid-column: span 3; display: flex; justify-content: space-between; align-items: center; padding: 2rem; }
+        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .card-premium, .card-info { grid-column: span 1; } }
+        footer { border-top: 1px solid var(--border-color); padding: 4rem 5%; text-align: center; margin-top: 5rem; }
+        .contact-number { font-size: clamp(2rem, 5vw, 4rem); font-family: 'Space Grotesk', sans-serif; display: block; margin: 2rem 0; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
 </head>
 <body>
-  <h1>AutoMatte Detail - Versiunea Lux</h1>
+    <nav>
+        <div class="brand">AutoMatte<span>.</span></div>
+        <a href="https://wa.me/40747214598" class="cta-btn">Programează-te</a>
+    </nav>
+    <header class="hero">
+        <h1>Detailing. <br>Direct la <br>tine acasă.</h1>
+        <p>Aducem studioul de detailing la locația ta. Curent propriu. Echipament profesional de injecție-extracție. Iași • Vaslui • Bârlad.</p>
+        <a href="https://wa.me/40747214598" class="cta-btn" style="width: max-content;">WhatsApp: 0747 214 598</a>
+    </header>
+    <section class="bento-section">
+        <h2>Servicii & Prețuri</h2>
+        <div class="bento-grid">
+            <div class="bento-card">
+                <div><h3>Curățare Simplă</h3><p style="margin-top: 1rem; color: var(--text-muted);">Aspirare, ștergere praf, degresare plastice, curățare geamuri interior.</p></div>
+                <div class="price-tag">250-300<span style="font-size: 1rem;"> RON</span></div>
+            </div>
+            <div class="bento-card">
+                <div><h3>Standard + Injecție</h3><p style="margin-top: 1rem; color: var(--text-muted);">Curățare simplă PLUS spălare tapițerie/mochete prin injecție-extracție completă.</p></div>
+                <div class="price-tag">400-450<span style="font-size: 1rem;"> RON</span></div>
+            </div>
+            <div class="bento-card card-premium">
+                <div><h3 style="color: var(--cyan);">Pachetul Suprem (Scaune Scoase)</h3><p style="margin-top: 1rem; color: var(--text-muted); max-width: 400px;">Curățare la cel mai mic detaliu. Demontăm scaunele pentru a accesa fiecare centimetru de mochetă.</p></div>
+                <div class="price-tag" style="margin-top: 2rem;">700-800<span style="font-size: 1rem;"> RON</span></div>
+            </div>
+            <div class="bento-card card-info">
+                <h3>Vii tu la noi? Nu, venim noi la tine.</h3><p style="color: var(--text-muted);">Avem generator propriu. Nu depindem de rețeaua ta.</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p style="color: var(--text-muted);">Rezervă acum locul tău</p>
+        <a href="tel:0747214598" class="contact-number">0747 214 598</a>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 AutoMatte Detail. Toate drepturile rezervate.</p>
+    </footer>
+    <script>
+        const cards = document.querySelectorAll('.bento-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+    </script>
 </body>
 </html>
