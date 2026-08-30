@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoMatte Detail — Curățare interior auto mobilă</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E8E2D3;
+    --paper-2:#DED6C2;
+    --ink:#1B1A17;
+    --panel-dark:#221F1A;
+    --panel-dark-2:#2B271F;
+    --accent:#D2571B;
+    --accent-ink:#3D2410;
+    --teal:#3D6E63;
+    --muted:#8B8577;
+    --muted-dark:#8f8a7c;
+    --line:rgba(27,26,23,0.14);
+    --line-dark:rgba(232,226,211,0.14);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  h1,h2,h3{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:1.08;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.03em;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  /* ---------- hazard divider ---------- */
+  .hazard{
+    height:10px;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--accent),
+      var(--accent) 14px,
+      var(--panel-dark) 14px,
+      var(--panel-dark) 28px
+    );
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--panel-dark);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Oswald', sans-serif;
+    color:var(--paper);
+    font-size:20px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--accent);}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--accent);
+    color:#fff;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:0.02em;
+    padding:11px 20px;
+    border-radius:2px;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 6px 18px rgba(210,87,27,0.35);}
+  .btn:focus-visible{outline:3px solid var(--teal); outline-offset:2px;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--paper);
+    border:1px solid var(--line-dark);
+  }
+  .btn-ghost:hover{box-shadow:none; border-color:var(--accent); background:rgba(210,87,27,0.08);}
+  .btn-sm{padding:9px 16px; font-size:13px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--panel-dark);
+    color:var(--paper);
+    padding:64px 0 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px,5vw,54px);
+    color:var(--paper);
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .hero p.lede{
+    font-size:17px;
+    color:#C8C1AF;
+    max-width:46ch;
+    margin-bottom:28px;
+  }
+  .hero-ctas{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .hero-meta{
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted-dark);
+    letter-spacing:0.02em;
+  }
+  .hero-meta strong{color:var(--paper); font-weight:600;}
+
+  /* photo tag / job-card placeholder in hero */
+  .photo-tag{
+    position:relative;
+    border:1px solid var(--line-dark);
+    background:var(--panel-dark-2);
+    aspect-ratio:4/5;
+    border-radius:2px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:20px;
+    text-align:center;
+  }
+  .photo-tag::before,.photo-tag::after,
+  .photo-tag .corner-tl,.photo-tag .corner-br{
+    content:'';
+    position:absolute;
+    width:18px; height:18px;
+    border:2px solid var(--accent);
+  }
+  .photo-tag::before{top:10px; left:10px; border-right:none; border-bottom:none;}
+  .photo-tag::after{bottom:10px; right:10px; border-left:none; border-top:none;}
+  .photo-tag .tag-icon{
+    width:44px; height:44px;
+    border-radius:50%;
+    border:1.5px solid var(--muted-dark);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--muted-dark);
+    font-size:18px;
+  }
+  .photo-tag .tag-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted-dark);
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:64px 0;}
+  .section-head{
+    max-width:60ch;
+    margin-bottom:40px;
+  }
+  .section-head h2{
+    font-size:clamp(26px,3.6vw,36px);
+    margin-top:8px;
+  }
+  .section-head p{color:#5A5548; font-size:15.5px; margin-top:12px;}
+
+  /* ---------- how it works : ticket stubs ---------- */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .ticket{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:22px 20px 24px;
+    position:relative;
+  }
+  .ticket-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.08em;
+    display:block;
+    margin-bottom:14px;
+  }
+  .ticket h3{
+    font-size:18px;
+    margin-bottom:10px;
+  }
+  .ticket p{font-size:14.5px; color:#5A5548;}
+  .ticket + .ticket{position:relative;}
+
+  /* ---------- pricing : job order cards ---------- */
+  .price-list{display:flex; flex-direction:column; gap:16px;}
+  .price-card{
+    background:var(--panel-dark);
+    color:var(--paper);
+    border-radius:2px;
+    padding:26px 28px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:24px;
+    align-items:center;
+    position:relative;
+    border-left:4px solid var(--accent);
+  }
+  .price-card .order-no{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--muted-dark);
+    letter-spacing:0.1em;
+  }
+  .price-card h3{
+    font-size:19px;
+    color:var(--paper);
+    margin-bottom:8px;
+    letter-spacing:0.01em;
+  }
+  .price-card p{
+    font-size:14px;
+    color:#C8C1AF;
+    max-width:52ch;
+  }
+  .price-card .price{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:22px;
+    font-weight:600;
+    color:var(--accent);
+    white-space:nowrap;
+    text-align:right;
+  }
+  .price-card .price span{
+    display:block;
+    font-size:11px;
+    color:var(--muted-dark);
+    font-weight:500;
+    letter-spacing:0.06em;
+    margin-top:2px;
+  }
+  .price-note{
+    margin-top:18px;
+    font-size:13px;
+    color:var(--muted);
+    font-family:'IBM Plex Mono', monospace;
+  }
+
+  /* ---------- gallery ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  .gallery .photo-tag{aspect-ratio:1/1; padding:12px;}
+  .gallery .tag-icon{width:34px; height:34px; font-size:14px;}
+  .gallery .tag-label{font-size:10px;}
+
+  /* ---------- coverage ---------- */
+  .coverage{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:22px;
+  }
+  .zone-chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    padding:10px 18px;
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .zone-chip .dot{width:7px; height:7px; border-radius:50%; background:var(--teal);}
+
+  /* ---------- why mobile ---------- */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .why-item h3{
+    font-size:16px;
+    color:var(--ink);
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .why-item .num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--accent);
+    font-size:13px;
+  }
+  .why-item p{font-size:14.5px; color:#5A5548;}
+
+  /* ---------- final CTA ---------- */
+  .cta-block{
+    background:var(--panel-dark);
+    color:var(--paper);
+    padding:64px 0;
+    text-align:center;
+  }
+  .cta-block h2{
+    color:var(--paper);
+    font-size:clamp(26px,4vw,38px);
+    margin-bottom:14px;
+  }
+  .cta-block p{
+    color:#C8C1AF;
+    max-width:48ch;
+    margin:0 auto 28px;
+    font-size:15.5px;
+  }
+  .cta-phone{
+    margin-top:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--muted-dark);
+  }
+  .cta-phone strong{color:var(--paper);}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--panel-dark-2);
+    color:var(--muted-dark);
+    padding:26px 0;
+    font-size:13px;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.is-visible{opacity:1; transform:none;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:820px){
+    .hero-grid{grid-template-columns:1fr; gap:32px;}
+    .hero .photo-tag{max-width:320px; margin:0 auto;}
+    .steps{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .price-card{grid-template-columns:1fr; text-align:left;}
+    .price-card .price{text-align:left;}
+    .header-inner .btn-ghost{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Auto<span>Matte</span> Detail</div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <a href="tel:+40747214598" class="btn btn-ghost btn-sm">0747 214 598</a>
+      <a href="https://wa.me/40747214598?text=Salut!%20A%C8%99%20vrea%20o%20ofert%C4%83%20pentru%20cur%C4%83%C8%9Bare%20interior." class="btn btn-sm">WhatsApp →</a>
+    </div>
+  </div>
+</header>
+
+<div class="hazard"></div>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Detailing interior mobil · Iași · Vaslui · Bârlad</span>
+      <h1 style="margin-top:14px;">Interior curat ca nou.<br>Venim noi, cu <em>tot</em> ce trebuie.</h1>
+      <p class="lede">Aducem generator și echipament de injecție-extracție direct la tine — acasă, la muncă, oriunde ești. Tu nu pierzi timp la spălătorie.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/40747214598?text=Salut!%20A%C8%99%20vrea%20o%20ofert%C4%83%20pentru%20cur%C4%83%C8%9Bare%20interior." class="btn">Cere ofertă pe WhatsApp →</a>
+        <a href="#preturi" class="btn btn-ghost">Vezi prețurile</a>
+      </div>
+      <div class="hero-meta">
+        <span><strong>100%</strong> mobil — venim la tine</span>
+        <span><strong>3</strong> pachete de curățare</span>
+        <span><strong>Iași · Vaslui · Bârlad</strong></span>
+      </div>
+    </div>
+    <div class="photo-tag">
+      <div class="tag-icon">📷</div>
+      <div class="tag-label">Poză înainte / după<br>— se adaugă aici —</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cum funcționează</span>
+      <h2>De la mesaj la mașină curată</h2>
+    </div>
+    <div class="steps">
+      <div class="ticket reveal">
+        <span class="ticket-num mono">PAS · 01</span>
+        <h3>Ne scrii pe WhatsApp</h3>
+        <p>Trimiți câteva poze cu interiorul mașinii și ne spui în ce oraș ești. Îți dăm o estimare rapidă de preț.</p>
+      </div>
+      <div class="ticket reveal">
+        <span class="ticket-num mono">PAS · 02</span>
+        <h3>Stabilim ora și locul</h3>
+        <p>Venim noi, cu generator și tot echipamentul necesar — acasă, la birou sau oriunde te avantajează pe tine.</p>
+      </div>
+      <div class="ticket reveal">
+        <span class="ticket-num mono">PAS · 03</span>
+        <h3>Interior gata, ca nou</h3>
+        <p>Curățare, injecție-extracție și, dacă e nevoie, demontarea scaunelor pentru rezultate complete.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="preturi" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Prețuri</span>
+      <h2>Pachete de curățare interior</h2>
+      <p>Alegem împreună pachetul potrivit în funcție de cât de murdară e mașina — fără costuri ascunse.</p>
+    </div>
+
+    <div class="price-list">
+      <div class="price-card reveal">
+        <span class="order-no">№ 01</span>
+        <div>
+          <h3>Curățare simplă</h3>
+          <p>Aspirare completă, curățare plastice și bord, geamuri interior. Ideală pentru întreținere regulată.</p>
+        </div>
+        <div class="price">250–300 <span>LEI</span></div>
+      </div>
+
+      <div class="price-card reveal">
+        <span class="order-no">№ 02</span>
+        <div>
+          <h3>Simplă + injecție-extracție completă</h3>
+          <p>Tot ce include pachetul simplu, plus spălare profundă a tapițeriei și mochetei prin injecție-extracție.</p>
+        </div>
+        <div class="price">400–450 <span>LEI</span></div>
+      </div>
+
+      <div class="price-card reveal">
+        <span class="order-no">№ 03</span>
+        <div>
+          <h3>Complet + scoaterea scaunelor</h3>
+          <p>Demontăm scaunele pentru curățare integrală, inclusiv zonele greu accesibile. Cel mai profund nivel de curățare.</p>
+        </div>
+        <div class="price">700–800 <span>LEI</span></div>
+      </div>
+    </div>
+    <p class="price-note">* Prețul final poate varia în funcție de starea mașinii — stabilit clar înainte să începem.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Rezultate</span>
+      <h2>Înainte / după</h2>
+      <p>Adaugă aici pozele tale cu mașinile curățate — sunt cel mai bun argument de vânzare.</p>
+    </div>
+    <div class="gallery">
+      <div class="photo-tag reveal"><div class="tag-icon">📷</div><div class="tag-label">Adaugă poză</div></div>
+      <div class="photo-tag reveal"><div class="tag-icon">📷</div><div class="tag-label">Adaugă poză</div></div>
+      <div class="photo-tag reveal"><div class="tag-icon">📷</div><div class="tag-label">Adaugă poză</div></div>
+      <div class="photo-tag reveal"><div class="tag-icon">📷</div><div class="tag-label">Adaugă poză</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Zonă de acoperire</span>
+      <h2>Venim la tine, oriunde ești</h2>
+    </div>
+    <div class="coverage reveal">
+      <span class="zone-chip"><span class="dot"></span>Iași</span>
+      <span class="zone-chip"><span class="dot"></span>Vaslui</span>
+      <span class="zone-chip"><span class="dot"></span>Bârlad</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">De ce mobil</span>
+      <h2>Fără drum, fără așteptare la spălătorie</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <h3><span class="num mono">01</span> Nu pierzi timp</h3>
+        <p>Venim noi la tine — acasă sau la muncă — în timp ce tu îți vezi de treabă.</p>
+      </div>
+      <div class="why-item reveal">
+        <h3><span class="num mono">02</span> Echipament complet</h3>
+        <p>Generator propriu și injecție-extracție de putere profesională, oriunde te afli.</p>
+      </div>
+      <div class="why-item reveal">
+        <h3><span class="num mono">03</span> Preț clar din start</h3>
+        <p>Vezi mașina, îți spunem prețul exact înainte să începem — fără surprize.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-block">
+  <div class="wrap">
+    <h2>Hai să stabilim o oră</h2>
+    <p>Scrie-ne pe WhatsApp cu orașul tău și câteva poze din interiorul mașinii — răspundem rapid cu un preț estimativ.</p>
+    <a href="https://wa.me/40747214598?text=Salut!%20A%C8%99%20vrea%20o%20ofert%C4%83%20pentru%20cur%C4%83%C8%9Bare%20interior." class="btn">Scrie-ne pe WhatsApp →</a>
+    <div class="cta-phone">sau sună direct la <strong>0747 214 598</strong></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 AutoMatte Detail — Iași · Vaslui · Bârlad</span>
+    <span class="mono">0747 214 598</span>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
