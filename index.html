@@ -385,13 +385,12 @@
     margin:0 auto 28px;
     font-size:15.5px;
   }
-  .cta-phone{
-    margin-top:18px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:14px;
-    color:var(--muted-dark);
+  .cta-socials{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
   }
-  .cta-phone strong{color:var(--paper);}
 
   /* ---------- footer ---------- */
   footer{
@@ -406,6 +405,13 @@
     align-items:center;
     flex-wrap:wrap;
     gap:10px;
+  }
+  .footer-links{
+    display:flex;
+    gap:16px;
+  }
+  .footer-links a:hover{
+    color:var(--paper);
   }
 
   /* ---------- reveal on scroll ---------- */
@@ -425,7 +431,6 @@
     .gallery{grid-template-columns:repeat(2,1fr);}
     .price-card{grid-template-columns:1fr; text-align:left;}
     .price-card .price{text-align:left;}
-    .header-inner .btn-ghost{display:none;}
   }
 </style>
 </head>
@@ -435,8 +440,8 @@
   <div class="header-inner">
     <div class="logo">Auto<span>Matte</span> Detail</div>
     <div style="display:flex; gap:10px; align-items:center;">
-      <a href="tel:+40747214598" class="btn btn-ghost btn-sm">0747 214 598</a>
-      <a href="https://wa.me/40747214598?text=Salut!%20A%C8%99%20vrea%20o%20ofert%C4%83%20pentru%20cur%C4%83%C8%9Bare%20interior." class="btn btn-sm">WhatsApp →</a>
+      <a href="https://tiktok.com/@auto.matte" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">TikTok</a>
+      <a href="https://ig.me/m/automatte_detail" target="_blank" rel="noopener" class="btn btn-sm">Instagram DM →</a>
     </div>
   </div>
 </header>
@@ -450,7 +455,7 @@
       <h1 style="margin-top:14px;">Interior curat ca nou.<br>Venim noi, cu <em>tot</em> ce trebuie.</h1>
       <p class="lede">Aducem generator și echipament de injecție-extracție direct la tine — acasă, la muncă, oriunde ești. Tu nu pierzi timp la spălătorie.</p>
       <div class="hero-ctas">
-        <a href="https://wa.me/40747214598?text=Salut!%20A%C8%99%20vrea%20o%20ofert%C4%83%20pentru%20cur%C4%83%C8%9Bare%20interior." class="btn">Cere ofertă pe WhatsApp →</a>
+        <a href="https://ig.me/m/automatte_detail" target="_blank" rel="noopener" class="btn">Cere ofertă pe Instagram DM →</a>
         <a href="#preturi" class="btn btn-ghost">Vezi prețurile</a>
       </div>
       <div class="hero-meta">
@@ -475,8 +480,8 @@
     <div class="steps">
       <div class="ticket reveal">
         <span class="ticket-num mono">PAS · 01</span>
-        <h3>Ne scrii pe WhatsApp</h3>
-        <p>Trimiți câteva poze cu interiorul mașinii și ne spui în ce oraș ești. Îți dăm o estimare rapidă de preț.</p>
+        <h3>Ne scrii pe Instagram / TikTok</h3>
+        <p>Trimiți câteva poze sau un video scurt cu interiorul mașinii și orașul tău. Îți dăm o estimare rapidă de preț.</p>
       </div>
       <div class="ticket reveal">
         <span class="ticket-num mono">PAS · 02</span>
@@ -587,17 +592,22 @@
 
 <section class="cta-block">
   <div class="wrap">
-    <h2>Hai să stabilim o oră</h2>
-    <p>Scrie-ne pe WhatsApp cu orașul tău și câteva poze din interiorul mașinii — răspundem rapid cu un preț estimativ.</p>
-    <a href="https://wa.me/40747214598?text=Salut!%20A%C8%99%20vrea%20o%20ofert%C4%83%20pentru%20cur%C4%83%C8%9Bare%20interior." class="btn">Scrie-ne pe WhatsApp →</a>
-    <div class="cta-phone">sau sună direct la <strong>0747 214 598</strong></div>
+    <h2>Hai să stabilim o programare</h2>
+    <p>Trimite-ne un mesaj privat pe Instagram sau TikTok cu orașul tău și câteva poze cu interiorul mașinii — îți răspundem rapid cu prețul exact.</p>
+    <div class="cta-socials">
+      <a href="https://ig.me/m/automatte_detail" target="_blank" rel="noopener" class="btn">Trimite mesaj pe Instagram →</a>
+      <a href="https://tiktok.com/@auto.matte" target="_blank" rel="noopener" class="btn btn-ghost">Cont TikTok</a>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-inner">
     <span>© 2026 AutoMatte Detail — Iași · Vaslui · Bârlad</span>
-    <span class="mono">0747 214 598</span>
+    <div class="footer-links">
+      <a href="https://instagram.com/automatte_detail" target="_blank" rel="noopener" class="mono">Instagram</a>
+      <a href="https://tiktok.com/@auto.matte" target="_blank" rel="noopener" class="mono">TikTok</a>
+    </div>
   </div>
 </footer>
 
